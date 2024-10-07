@@ -58,7 +58,7 @@ public class IngredientRecipeDao {
             // Selecionar os dados da restrição baseados no id colocado cmo parâmetro
             pstmt.setInt(1, recipe_id);
             ResultSet rs = pstmt.executeQuery();
-            // Se o select for true , fazemos o a operção
+            // Se o select for true, fazemos o a operção
             if (rs.next()) {
                 pstmt = conn.prepareStatement("select ingredient.name , ingredient.id , ingredient.description , ingredient.transaction_made from ingredient join  ingredient_recipe on ingredient.id = ingredient_recipe.ingredient_id   where recipe_id =?");
                 pstmt.setInt(1, recipe_id);
