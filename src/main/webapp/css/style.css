@@ -5,17 +5,17 @@
 }
 @font-face {
     font-family: "Poppins_regular";
-    src: url(Poppins/Poppins-Regular.ttf);
+    src: url("./Poppins/Poppins-Regular.ttf");
 }
 
 @font-face {
     font-family: "Poppins_light";
-    src: url(Poppins/Poppins-Light.ttf);
+    src: url("./Poppins/Poppins-Light.ttf");
 }
 
 @font-face {
     font-family: "Poppins_medium";
-    src: url(Poppins/Poppins-Medium.ttf);
+    src: url("./Poppins/Poppins-Medium.ttf");
 }
 
 body {
@@ -29,16 +29,15 @@ html {
 }
 a {
     text-decoration: none;
-    color: #FAFAFA;
+    color: #fafafa;
 }
-
 header {
     height: 80px;
     display: flex;
     width: 100vw;
     position: fixed;
     background-color: #f17022;
-    color: #FAFAFA;
+    color: #fafafa;
     align-items: center;
     box-shadow: 0px 0px 12.4px rgba(0, 0, 0, 0.25);
     z-index: 10;
@@ -88,7 +87,7 @@ header a:hover {
 }
 
 .slogan {
-    color: #FAFAFA;
+    color: #fafafa;
     display: flex;
     line-height: 3.1rem;
     font-size: 3rem;
@@ -96,7 +95,7 @@ header a:hover {
 }
 .description {
     display: inline-flex;
-    color: #FAFAFA;
+    color: #fafafa;
     font-size: 1.5rem;
     line-height: 2.2rem;
     font-family: "Poppins_regular";
@@ -129,7 +128,7 @@ header a:hover {
     width: 400px;
     height: 500px;
     transform: rotate(31.54deg);
-    border: 4px solid #FAFAFA;
+    border: 4px solid #fafafa;
     border-radius: 84px;
     z-index: 1;
     right: 100px;
@@ -172,7 +171,7 @@ header a:hover {
 .videoTittle {
     position: absolute;
     font-size: 3.5rem;
-    color: #FAFAFA;
+    color: #fafafa;
     margin-bottom: 400px;
 }
 .character{
@@ -274,7 +273,7 @@ header a:hover {
     width: 100vw;
     height: 576px;
     background-color: #f17022;
-    color: #FAFAFA;
+    color: #fafafa;
 }
 .background h2{
     font-size: 4rem;
@@ -309,7 +308,7 @@ header a:hover {
     font-size: 1.5rem;
     display: flex;
     position: absolute;
-    color: #FAFAFA;
+    color: #fafafa;
     margin-top: 440px;
     margin-left: 240px;
 }
@@ -354,9 +353,6 @@ header a:hover {
         width: 550px;
         height: 300px;
     }
-    header{
-        position: fixed;
-    }
     .background .logo{
         margin-left: 700px;
     }
@@ -365,6 +361,9 @@ header a:hover {
     }
     .point{
         display: none;
+    }
+    header{
+        position: fixed;
     }
     .mark{
         text-align: center;
