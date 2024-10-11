@@ -3,11 +3,11 @@ package dao;
 
 import java.sql.*;
 
-public class IngredientRecipeDao {
-    private ResultSet rs;
-    private Connection conn;
+public class IngredientRecipeDAO {
     private PreparedStatement pstmt;
     public boolean connect() {
+        Connection conn = null;
+
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection("jdbc:postgresql://pg-lets-snack-lets-snack.k.aivencloud.com:18692/db-lets-snack-1o", "avnadmin", "AVNS_1FznTa8oi0sxh3iE4Nm");
@@ -22,6 +22,8 @@ public class IngredientRecipeDao {
     //Método para conectar
 
     public void disconnect() {
+        Connection conn = null;
+
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
@@ -35,6 +37,8 @@ public class IngredientRecipeDao {
 
     //método para selecionar toda a tabela
     public ResultSet selectAll() {
+        Connection conn = null;
+
         try {
             connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe");
@@ -52,6 +56,8 @@ public class IngredientRecipeDao {
 
     //encontra  a ingrediente_recipe peolo id
     public ResultSet searchRecipeForID(int recipe_id ) {
+        Connection conn = null;
+
         try {
             connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe  where recipe_id=?");
@@ -77,6 +83,8 @@ public class IngredientRecipeDao {
     }
     //deleta pelo id
     public int  deleteRecipeForID(int id ) {
+        Connection conn = null;
+
         try {
             connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe  where id=?");
@@ -100,6 +108,8 @@ public class IngredientRecipeDao {
     }
     //atualiza pelo id
     public int  updateRecipeForID(int id ) {
+        Connection conn = null;
+
         try {
             connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe  where id=?");

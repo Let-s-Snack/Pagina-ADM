@@ -2,7 +2,7 @@ package dao;
 
 import java.sql.*;
 
-public class AdmDao {
+public class AdmDAO {
 
     private Connection conn;
     private PreparedStatement pstmt;
@@ -48,7 +48,7 @@ public class AdmDao {
             connect();
             pstmt = conn.prepareStatement("SELECT * FROM Admin WHERE email = ?");
             pstmt.setString(1, email);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             return rs;
         } catch (SQLException e){
             e.printStackTrace();
@@ -57,12 +57,12 @@ public class AdmDao {
             desconnect();
         }
     }
-    public ResultSet searchForPassword(String  password) {
+    public ResultSet searchForPassword(String  email) {
         try {
             connect();
-            pstmt = conn.prepareStatement("SELECT * FROM Admin WHERE password = ?");
-            pstmt.setString(1, password);
-            ResultSet rs = pstmt.executeQuery();
+            pstmt = conn.prepareStatement("SELECT password FROM Admin WHERE email = ?");
+            pstmt.setString(1, email);
+            rs = pstmt.executeQuery();
             return rs;
         } catch (SQLException e){
             e.printStackTrace();

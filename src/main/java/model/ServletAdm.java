@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class ServletAdm { //Classe Adm
     //declaração dos Atributo
