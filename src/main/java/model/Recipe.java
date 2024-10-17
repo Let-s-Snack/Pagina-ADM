@@ -1,6 +1,6 @@
 package model;
 
-public class ServletRecipe {// Classe Receitas
+public class Recipe {// Classe Receitas
 
     // declaração dos atributos
     private String name;
@@ -13,7 +13,7 @@ public class ServletRecipe {// Classe Receitas
 
 
     // Construtor
-    public ServletRecipe(String name, int id, String instruction, int ingridient_id, String image_url, int restriction_id, boolean transaction_made,String steps ){
+    public Recipe(String name, int id, String instruction, int ingridient_id, String image_url, int restriction_id, boolean transaction_made, String steps ){
         this.name =name;
         this.id = id;
         this.ingridient_id = ingridient_id;
@@ -24,7 +24,7 @@ public class ServletRecipe {// Classe Receitas
     }
 
     // Construtor para a página de ADM
-    public ServletRecipe(String name, String instruction, String image_url ){
+    public Recipe(String name, String instruction, String image_url ){
         this.name=name;
         this.steps = instruction;
         this.image_url = image_url;

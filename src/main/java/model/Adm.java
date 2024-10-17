@@ -1,6 +1,6 @@
 package model;
 
-public class ServletAdm { //Classe Adm
+public class Adm { //Classe Adm
     //declaração dos Atributo
     private String email;
     private String password;
@@ -9,7 +9,7 @@ public class ServletAdm { //Classe Adm
 
     //Construtor
 
-    public ServletAdm(String email, String password, String name, int id) {
+    public Adm(String email, String password, String name, int id) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -17,7 +17,7 @@ public class ServletAdm { //Classe Adm
     }
 
     //Construtor para pag. de adm
-    public ServletAdm(String email, String password, String name) {
+    public Adm(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;

@@ -1,7 +1,6 @@
 package model;
-import java.sql.*;
 
-public class ServletRestriction {
+public class Restriction {
 
     //    Colunas das tabelas
     private String type;
@@ -14,7 +13,7 @@ public class ServletRestriction {
 
 //  Construtor
 
-    public ServletRestriction(String type, String imageURL, int id, String description) {
+    public Restriction(String type, String imageURL, int id, String description) {
         this.type = type;
         this.imageURL = imageURL;
         this.id = id;

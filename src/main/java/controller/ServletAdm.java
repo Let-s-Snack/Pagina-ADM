@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name = "administrador", value = "/login-adm")
-public class Adm extends HttpServlet {
+public class ServletAdm extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AdmDAO admdao= new AdmDAO();
         ResultSet rsEmail = null;
@@ -22,13 +22,11 @@ public class Adm extends HttpServlet {
             String password = req.getParameter("password");
             String passReturn="";
 
+            ResultSet rsAll=admdao.selectAll();
             rsEmail = admdao.searchForEmail(email);
             if (rsEmail != null && rsEmail.next()) {
+                passReturn = rsEmail.getString("password");
 
-                while (rsEmail.next()){
-                    passReturn=rsEmail.getString("password");
-
-                }
                 if (passReturn.equals(password)){
                 req.getRequestDispatcher("indexAdm.html").forward(req, resp);
                 }else {

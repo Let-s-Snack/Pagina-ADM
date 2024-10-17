@@ -1,14 +1,14 @@
 package model;
 
-public class ServletIngredient {
+public class Ingredient {
     private int id;
     private String name;
     private String description;
 
-    public ServletIngredient() {
+    public Ingredient() {
     }
 
-    public ServletIngredient(int id, String name, String description) {
+    public Ingredient(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;

@@ -1,7 +1,6 @@
 package model;
-import java.sql.*;
 
-public class ServletIngredientRecipe {
+public class IngredientRecipe {
     int id;
     int ingredient_id;
 
@@ -11,7 +10,7 @@ public class ServletIngredientRecipe {
     int quantity;
     boolean transaction_made;
 
-    public ServletIngredientRecipe(int id , int ingredient_id,int recipe_id,String measure, int quantity, boolean transaction_made){
+    public IngredientRecipe(int id , int ingredient_id, int recipe_id, String measure, int quantity, boolean transaction_made){
         this.id=id;
         this.ingredient_id=ingredient_id;
         this.recipe_id=recipe_id;

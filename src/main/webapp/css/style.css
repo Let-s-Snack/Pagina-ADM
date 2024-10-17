@@ -362,8 +362,8 @@ header a:hover {
     .point{
         display: none;
     }
-    header{
-        position: fixed;
+    .page4 p{
+        font-size: 1.6rem ;
     }
     .mark{
         text-align: center;
