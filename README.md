@@ -40,13 +40,13 @@ O aplicativo será usado para realizar os seguintes proceidmentos com os dados:
 
 ## Tabelas
 
-| Tabela              |                                      
-| ----------------- | 
-| Recipe       | 
-| Adm       | 
-| Ingridient       | 
-| Ingridient-Recipe      |
-| Restriction       | 
+| Tabela              |  Tradução |                                    
+| ----------------- | ----------------- |
+| Recipe       | Receita  |
+| Adm       | Administrador  |
+| Ingridient       | Ingrediente  |
+| Ingridient-Recipe      | Ingrediente e receita (intermediária)  |
+| Restriction       | Restrição  |
 
 
 
