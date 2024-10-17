@@ -6,6 +6,8 @@
 
 O projeto da página de administrador serve para fazer com que os administradores do aplicativo possam ter acesso aos dados de 5 tabelas do banco.
 Permitindo controlar e monitorar todas as atividades e operações do Let's Snack.
+
+
 ## Instalação
 
 
@@ -17,10 +19,6 @@ O aplicativo será usado para realizar os seguintes proceidmentos com os dados:
 - inserção
 - alteração
 - remoção
-
-## Contribuição
-
-
 
 
 ## Autores
