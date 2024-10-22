@@ -1,53 +1,33 @@
 package dao;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class IngredientDAO {
 
-    private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet rs;
 
-    public boolean connect() {
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://pg-lets-snack-lets-snack.k.aivencloud.com:18692/db-lets-snack-1o", "avnadmin", "AVNS_1FznTa8oi0sxh3iE4Nm");
-            return true;
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public void disconnect() {
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
-        } catch (SQLException sqe) {
-            sqe.printStackTrace();
-        }
-    }
-
     public ResultSet selectAll() {
+        ConnectionDB connectionDB= new ConnectionDB();
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM ingredient");
             return pstmt.executeQuery();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             return null;
         } finally {
-            disconnect();
+            connectionDB.disconnect();
         }
     }
 
     public ResultSet selectById(int id){
+        ConnectionDB connectionDB= new ConnectionDB();
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM ingredient WHERE id = ? ");
             pstmt.setInt(1, id);
             return pstmt.executeQuery();
@@ -55,14 +35,15 @@ public class IngredientDAO {
             sqle.printStackTrace();
             return null;
         } finally {
-            disconnect();
+            connectionDB.disconnect();
         }
     }
 
     public int insert(int id, String name, String description) {
+        ConnectionDB connectionDB= new ConnectionDB();
         int n = 0;
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM ingredient WHERE id = ?");
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
@@ -85,15 +66,16 @@ public class IngredientDAO {
             n = -1;
             return n;
         } finally {
-            disconnect();
+            connectionDB.disconnect();
         }
         return n;
     }
 
     public int update(String column, String newValue, int id) {
+        ConnectionDB connectionDB= new ConnectionDB();
         int n = 0;
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM ingredient WHERE id = ?");
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
@@ -112,7 +94,7 @@ public class IngredientDAO {
             e.printStackTrace();
             n = -1;
         } finally {
-            disconnect();
+            connectionDB.disconnect();
         }
         return n;
     }
@@ -122,9 +104,10 @@ public class IngredientDAO {
     public int updateDescription(int id, String description) {return update("description", description,id);}
 
     public int remove(String column, int id) {
+        ConnectionDB connectionDB= new ConnectionDB();
         int n = 0;
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT " + column + " FROM ingredient WHERE id=?");
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
@@ -144,7 +127,7 @@ public class IngredientDAO {
             e.printStackTrace();
             n = -1;
         } finally {
-            disconnect();
+            connectionDB.disconnect();
         }
         return n;
     }

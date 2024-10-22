@@ -1,5 +1,6 @@
 package controller;
 import dao.AdmDAO;
+import dao.ConnectionDB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,13 +17,14 @@ public class ServletAdm extends HttpServlet {
         AdmDAO admdao= new AdmDAO();
         ResultSet rsEmail = null;
         ResultSet rsPassword = null;
+        ConnectionDB connectDB = new ConnectionDB();
 
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             String passReturn="";
 
-            ResultSet rsAll=admdao.selectAll();
+
             rsEmail = admdao.searchForEmail(email);
             if (rsEmail != null && rsEmail.next()) {
                 passReturn = rsEmail.getString("password");
@@ -30,21 +32,22 @@ public class ServletAdm extends HttpServlet {
                 if (passReturn.equals(password)){
                 req.getRequestDispatcher("indexAdm.html").forward(req, resp);
                 }else {
-                    req.getRequestDispatcher("/errorPageEmail.html").forward(req, resp);
+                    req.getRequestDispatcher("indexError.html").forward(req, resp);
                 }
 
             } else {
-                req.getRequestDispatcher("/errorPageEmail.html").forward(req, resp);
+                req.getRequestDispatcher("indexError.html").forward(req, resp);
             }
 
         } catch (Exception d) {
             req.setAttribute("erro", d.getMessage());
-            req.getRequestDispatcher("/errorPage.jsp").forward(req, resp);
+            req.getRequestDispatcher("indexError.html").forward(req, resp);
         } finally {
             try {
                 if (rsEmail != null) rsEmail.close();
                 if (rsPassword != null) rsPassword.close();
-                admdao.desconnect();
+                connectDB.disconnect();
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

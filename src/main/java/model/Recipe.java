@@ -13,7 +13,7 @@ public class Recipe {// Classe Receitas
 
 
     // Construtor
-    public Recipe(String name, int id, String instruction, int ingridient_id, String image_url, int restriction_id, boolean transaction_made, String steps ){
+    public Recipe(String name, int id, String steps, int ingridient_id, String image_url, int restriction_id, boolean transaction_made ){
         this.name =name;
         this.id = id;
         this.ingridient_id = ingridient_id;
@@ -39,7 +39,7 @@ public class Recipe {// Classe Receitas
         return this.id;
     }
 
-    public String getInstruction() {
+    public String getSteps() {
         return this.steps;
     }
 

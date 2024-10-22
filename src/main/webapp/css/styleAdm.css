@@ -57,10 +57,7 @@ button{
     justify-content: center;
     text-align: center;
     margin-top: 20px;
-    gap: 140px;
-}
-.row2 button{
-    width: 410px;
+    gap: 10px;
 }
 .table{
     width: 200px;

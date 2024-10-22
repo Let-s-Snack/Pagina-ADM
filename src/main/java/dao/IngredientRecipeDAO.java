@@ -5,42 +5,12 @@ import java.sql.*;
 
 public class IngredientRecipeDAO {
     private PreparedStatement pstmt;
-    public boolean connect() {
-        Connection conn = null;
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://pg-lets-snack-lets-snack.k.aivencloud.com:18692/db-lets-snack-1o", "avnadmin", "AVNS_1FznTa8oi0sxh3iE4Nm");
-            //Conexão com o banco
-            return true;
-            //Se a conexão der certo, retorna true
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    //Método para conectar
-
-    public void disconnect() {
-        Connection conn = null;
-
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
-            }
-            //Se a conexão for diferente de null, então, ela tive sido aberta e for diferente de fechada, nós fechamos a conexão
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     //método para selecionar toda a tabela
     public ResultSet selectAll() {
-        Connection conn = null;
-
+        ConnectionDB connectionDB= new ConnectionDB();
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe");
             //Selecionando tudo de restrição
             return pstmt.executeQuery(); // Correto para consulta
@@ -50,16 +20,16 @@ public class IngredientRecipeDAO {
             return null;
 
         } finally {
-            disconnect();
+            connectionDB.disconnect();
         }
     }
 
     //encontra  a ingrediente_recipe peolo id
     public ResultSet searchRecipeForID(int recipe_id ) {
-        Connection conn = null;
+        ConnectionDB connectionDB= new ConnectionDB();
 
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe  where recipe_id=?");
             // Selecionar os dados da restrição baseados no id colocado cmo parâmetro
             pstmt.setInt(1, recipe_id);
@@ -77,16 +47,16 @@ public class IngredientRecipeDAO {
             e.printStackTrace();
             return null;
         }finally{
-            disconnect();
+             connectionDB.disconnect();
         }
 
     }
     //deleta pelo id
     public int  deleteRecipeForID(int id ) {
-        Connection conn = null;
+        ConnectionDB connectionDB= new ConnectionDB();
 
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe  where id=?");
             // Selecionar os dados da restrição baseados no id colocado cmo parâmetro
             pstmt.setInt(1, id);
@@ -103,15 +73,15 @@ public class IngredientRecipeDAO {
             e.printStackTrace();
             return -1 ;
         }finally{
-            disconnect();
+             connectionDB.disconnect();
         }
     }
     //atualiza pelo id
     public int  updateRecipeForID(int id ) {
-        Connection conn = null;
+        ConnectionDB connectionDB= new ConnectionDB();
 
         try {
-            connect();
+            Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("select * from ingredient_recipe  where id=?");
             // Selecionar os dados da restrição baseados no id colocado cmo parâmetro
             pstmt.setInt(1, id);
@@ -130,7 +100,7 @@ public class IngredientRecipeDAO {
             e.printStackTrace();
             return -1 ;
         }finally{
-            disconnect();
+             connectionDB.disconnect();
         }
 
     }
