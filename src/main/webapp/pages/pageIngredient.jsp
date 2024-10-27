@@ -14,8 +14,6 @@
     <title>Ingrediente</title>
     <link rel="stylesheet" href="../css/pageIngredient.css">
     <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
-
-
 </head>
 <body>
     <header>
@@ -43,9 +41,9 @@
             %>
             <tr>
                 <td><%=rs.getString("name")%></td>
-                <td><%=rs.getString("description")%>></td>
+                <td><%=rs.getString("description")%></td>
                 <td>
-                    <a href="#">
+                    <a href="pageIngredientUpdate.jsp?name=<%= rs.getString("name") %>">
                         <img src="../assets/edit.png" alt="Editar" class="edit">
                     </a>
                 </td>
@@ -59,8 +57,10 @@
         </table>
 
         <div class="buttons">
-            <button class="btn-back">Voltar</button>
-            <button class="btn-add">Add Item</button>
+            <a
+                    href="../indexAdm.html"
+            ><button class="btn-back">Voltar</button></a>
+            <button class="btn-add">Adicionar</button>
         </div>
     </div>
 

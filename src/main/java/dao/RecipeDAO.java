@@ -90,7 +90,7 @@ public class RecipeDAO {// Classe RecipeDao
         return n;
     }
 
-    public int deleteRow(int id){
+    public int remove(int id){
         ConnectionDB connectionDB= new ConnectionDB();
         try{
             Connection conn= connectionDB.connect();

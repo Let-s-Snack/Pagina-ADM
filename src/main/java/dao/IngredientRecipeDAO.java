@@ -24,7 +24,7 @@ public class IngredientRecipeDAO {
         }
     }
 
-    //encontra  a ingrediente_recipe peolo id
+    //encontra  a ingrediente_recipe pelo id
     public ResultSet searchRecipeForID(int recipe_id ) {
         ConnectionDB connectionDB= new ConnectionDB();
 
@@ -52,7 +52,7 @@ public class IngredientRecipeDAO {
 
     }
     //deleta pelo id
-    public int  deleteRecipeForID(int id ) {
+    public int  removeForID(int id ) {
         ConnectionDB connectionDB= new ConnectionDB();
 
         try {

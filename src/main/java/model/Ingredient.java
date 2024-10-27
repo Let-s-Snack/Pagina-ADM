@@ -5,11 +5,12 @@ public class Ingredient {
     private String name;
     private String description;
 
-    public Ingredient() {
+    public Ingredient(String name) {
+        this.name = name;
+
     }
 
-    public Ingredient(int id, String name, String description) {
-        this.id = id;
+    public Ingredient( String name, String description) {
         this.name = name;
         this.description = description;
     }

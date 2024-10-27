@@ -7,8 +7,6 @@ public class AdmDAO {
     private PreparedStatement pstmt;
     private ResultSet rs;
 
-
-
     public ResultSet searchForEmail(String  email) {
         ConnectionDB connectionDB= new ConnectionDB();
         try {

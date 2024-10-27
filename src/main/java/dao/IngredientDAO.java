@@ -1,4 +1,6 @@
 package dao;
+import model.Ingredient;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +17,21 @@ public class IngredientDAO {
         try {
             Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM ingredient");
+            return pstmt.executeQuery();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            return null;
+        } finally {
+            connectionDB.disconnect();
+        }
+    }
+
+    public ResultSet selectByName(String name) {
+        ConnectionDB connectionDB= new ConnectionDB();
+        try {
+            Connection conn= connectionDB.connect();
+            pstmt = conn.prepareStatement("SELECT * FROM ingredient where name = ?");
+            pstmt.setString(1, name);
             return pstmt.executeQuery();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -71,18 +88,20 @@ public class IngredientDAO {
         return n;
     }
 
-    public int update(String column, String newValue, int id) {
+    public int update(Ingredient ingredient) {
         ConnectionDB connectionDB= new ConnectionDB();
         int n = 0;
         try {
             Connection conn= connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM ingredient WHERE id = ?");
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, ingredient.getId());
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                pstmt = conn.prepareStatement("UPDATE ingredient SET " + column + " = ? WHERE id = ?");
-                pstmt.setString(1, newValue);
-                pstmt.setInt(2, id);
+                pstmt = conn.prepareStatement("UPDATE ingredient SET id, name, description = ?,?,? WHERE id = ?");
+                pstmt.setInt(1, ingredient.getId());
+                pstmt.setString(2, ingredient.getName());
+                pstmt.setString(3, ingredient.getDescription());
+
 
                 if (pstmt.executeUpdate() > 0) {
                     n = 1;
@@ -100,26 +119,16 @@ public class IngredientDAO {
     }
 
 
-    public int updateName(int id, String name) {return update("name", name, id);}
-    public int updateDescription(int id, String description) {return update("description", description,id);}
-
-    public int remove(String column, int id) {
+    public int remove(Ingredient ingredient) {
         ConnectionDB connectionDB= new ConnectionDB();
+
         int n = 0;
         try {
             Connection conn= connectionDB.connect();
-            pstmt = conn.prepareStatement("SELECT " + column + " FROM ingredient WHERE id=?");
-            pstmt.setInt(1, id);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                pstmt = conn.prepareStatement("DELETE FROM ingredient WHERE id=?");
-                pstmt.setInt(1, id);
-
-                if (pstmt.executeUpdate() > 0) {
-                    n = 1;
-                } else {
-                    n = -1;
-                }
+            pstmt = conn.prepareStatement("DELETE FROM ingredient WHERE name=?");
+            pstmt.setString(1, ingredient.getName());
+            if (pstmt.executeUpdate() > 0) {
+                n = 1;
             } else {
                 n = -1;
             }
@@ -128,12 +137,9 @@ public class IngredientDAO {
             n = -1;
         } finally {
             connectionDB.disconnect();
+
         }
         return n;
     }
-
-    public int removeId(int id) {return remove("id", id);}
-    public int removeName(int id) {return remove("name", id);}
-    public int removeRestriction(int id) {return remove("description", id);}
 
 }
