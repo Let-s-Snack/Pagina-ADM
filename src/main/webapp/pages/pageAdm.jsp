@@ -1,18 +1,17 @@
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="dao.RecipeDAO" %>
-<%@ page import="dao.ConnectionDB" %><%--
+<%@ page import="dao.AdmDAO" %>
+<%@ page import="java.sql.SQLException" %><%--
   Created by IntelliJ IDEA.
   User: beatrizmarioti-ieg
   Date: 29/10/2024
-  Time: 22:54
+  Time: 22:46
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Receitas</title>
-    <link rel="stylesheet" href="../css/pageRecipe.css">
+    <title>Administradores</title>
+    <link rel="stylesheet" href="../css/pageAdm.css">
     <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
 </head>
 <body>
@@ -28,49 +27,39 @@
         <thead>
         <tr>
             <th>NOME</th>
-            <th>URL IMAGEM</th>
-            <th>PASSOS</th>
-            <th>DESCRIÇÃO</th>
-            <th>VER</th>
+            <th>E-MAIL</th>
+            <th>SENHA</th>
             <th>AÇÃO</th>
         </tr>
         </thead>
         <tbody>
         <%
-            RecipeDAO recipeDAO=new RecipeDAO();
-            ResultSet rs = recipeDAO.selectAll();
+            AdmDAO admDAO=new AdmDAO();
+            ResultSet rs = admDAO.selectAll();
             try{
                 while (rs.next()){
         %>
         <tr>
             <td><%=rs.getString("name")%></td>
-            <td><%=rs.getString("image_url")%></td>
-            <td><%=rs.getString("steps")%></td>
-            <td><%=rs.getString("description")%></td>
+            <td><%=rs.getString("email")%></td>
+            <td><%=rs.getString("password")%></td>
             <td>
-                <a href="pageIngredientRecipe.jsp?recipe_id=<%= rs.getInt("id") %>" class="buttonIngredient" >
-                    <p class="show">VER INGREDIENTE</p>
-                </a>
-            </td>
-            <td>
-                <a href="pageRecipeUpdate.jsp?name=<%= rs.getString("name") %>">
+                <a href="pageAdmUpdate.jsp?email=<%= rs.getString("email") %>">
                     <img src="../assets/edit.png" alt="Editar" class="edit">
                 </a>
             </td>
         </tr>
         <%
-
-                }
-            }catch (SQLException se){
+            }}catch (SQLException se){
         %>
         <h1>ERRO</h1>
-        <%}
-        %>
+        <%}%>
         </tbody>
     </table>
 
     <div class="buttons">
-        <a href="../indexAdm.html"
+        <a
+                href="../indexAdm.html"
         ><button class="btn-back">Voltar</button></a>
         <button class="btn-add">Adicionar</button>
     </div>

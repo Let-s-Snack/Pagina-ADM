@@ -49,7 +49,8 @@
                 </td>
             </tr>
             <%
-                }}catch (SQLException se){
+                    }
+                }catch (SQLException se){
             %>
             <h1>ERRO</h1>
             <%}%>
@@ -57,10 +58,8 @@
         </table>
 
         <div class="buttons">
-            <a
-                    href="../indexAdm.html"
-            ><button class="btn-back">Voltar</button></a>
-            <button class="btn-add">Adicionar</button>
+            <a href="pageIngredient.jsp"><button class="btn-back">Voltar</button></a>
+            <a href="pageIngredientInsert.jsp"><button class="btn-add">Adicionar</button></a>
         </div>
     </div>
 

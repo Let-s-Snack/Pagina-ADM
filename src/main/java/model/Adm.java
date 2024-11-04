@@ -1,29 +1,30 @@
 package model;
 
 public class Adm { //Classe Adm
-    //declaração dos Atributo
+
+//  Declaração dos Atributos
     private String email;
     private String password;
     private String name;
-    private int id;
 
-    //Construtor
-
-    public Adm(String email, String password, String name, int id) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.id = id;
-    }
-
-    //Construtor para pag. de adm
+//  Construtor
     public Adm(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
     }
 
-    //Getters e Setters
+//  Construtor para a página de ADM
+
+    public Adm(String email) {
+        this.email = email;
+
+    }
+    public Adm() {}
+
+//  Getters e Setters
+
+//  Getters
     public String getEmail() {
         return email;
     }
@@ -33,10 +34,8 @@ public class Adm { //Classe Adm
     public String getPassword() {
         return password;
     }
-    public int getId() {
-        return id;
-    }
 
+//  Setters
     public void setPassword(String password) {
         this.password = password;
     }
@@ -46,14 +45,11 @@ public class Adm { //Classe Adm
     public void setName(String name) {
         this.name = name;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    //To String
+//  ToString
     @Override
     public String toString() {
         return "Name: " + name + "Email: " + email + "Password: " + password + "\n";
     }
-    //final da classe de Adm
-}
+
+}//Fim da classe Adm

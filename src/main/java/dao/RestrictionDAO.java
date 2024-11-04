@@ -1,26 +1,28 @@
-//importação de bibliotecas java
 package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import model.Ingredient;
+import model.Recipe;
 import model.Restriction;
 
-public class RestrictionDAO {
-//    Return -1 = caiu no catch
-//    Return 0 = caiu no else
+public class RestrictionDAO { //Classe RestrictionDAO
+
+//  Declaração dos Atributos
     private PreparedStatement pstmt;
     private ResultSet rs;
 
-    // Buscar todos os registros
+//  Metodo que busca todos os registros da tabela Restriction
     public ResultSet selectAll() {
+
+//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
         ConnectionDB connectionDB = new ConnectionDB();
         try {
             Connection conn= connectionDB.connect();
-            pstmt = conn.prepareStatement("select * from restriction");
-//            Selecionando tudo de restrição
-            return pstmt.executeQuery(); // Correto para consulta
-//            executando o comando
+            pstmt = conn.prepareStatement("select * from restriction where is_deleted='false' order by type");
+            return pstmt.executeQuery();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             return null;
@@ -29,19 +31,48 @@ public class RestrictionDAO {
         }
     }
 
-    // Adicionar todos os registros
+    //  Metodo que encontra Ingredient pelo nome
+    public ResultSet selectByType(Restriction restriction) {
+
+//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
+        ConnectionDB connectionDB= new ConnectionDB();
+        try {
+            Connection conn= connectionDB.connect();
+            pstmt = conn.prepareStatement("SELECT * FROM restriction where type = ?");
+            pstmt.setString(1, restriction.getType());
+            return pstmt.executeQuery();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+            return null;
+        } finally {
+            connectionDB.disconnect();
+        }
+    }
+    public int id (){
+        ConnectionDB connectionDB= new ConnectionDB();
+        try{
+            Connection conn= connectionDB.connect();
+            pstmt=conn.prepareStatement("select id+1 as new_id from recipe order by id desc limit 1");
+            rs=pstmt.executeQuery();
+            return rs.getInt("new_id");
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+//  Metodo que insere registros na tabela Restriction
     public int insert(Restriction restriction) {
+
+//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
         ConnectionDB connectionDB = new ConnectionDB();
         try {
             Connection conn= connectionDB.connect();
-//            Como os dados são adiconados com id serial, apenas adicionamos os dados, sem verificar se o id existe
-//            Se não possuem dados com esse código, inserimos os valores dados como parâmetro com o id
-//            Como is_deleted e is_updated tem default false, não adicionamos eles aqui
-            pstmt = conn.prepareStatement("insert into restriction (type, image_url, description) values (?, ?, ?)");
-            pstmt.setString(1, restriction.getType());
-            pstmt.setString(2, restriction.getImageURL());
-            pstmt.setString(3, restriction.getDescription());
-            return pstmt.executeUpdate();  // Correto para INSERT
+            pstmt = conn.prepareStatement("insert into restriction (id,type, image_url, description) values (?,?, ?, ?)");
+            pstmt.setInt(1, id());
+            pstmt.setString(2, restriction.getType());
+            pstmt.setString(3, restriction.getImageURL());
+            pstmt.setString(4, restriction.getDescription());
+            return pstmt.executeUpdate();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
             return -1;
@@ -49,11 +80,11 @@ public class RestrictionDAO {
             connectionDB.disconnect();
         }
     }
-//      Métodos de alterar
-
-    // Alterar o type
+//  Metodo que atualiza os dados da tabela Restriction pelo id
     public int update(Restriction restriction) {
         int n = 0;
+
+//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
         ConnectionDB connectionDB = new ConnectionDB();
         try {
             Connection conn= connectionDB.connect();
@@ -61,15 +92,19 @@ public class RestrictionDAO {
             pstmt.setInt(1, restriction.getId());
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                pstmt = conn.prepareStatement("UPDATE ingredient SET type, image_url, description = ?,?,? WHERE id = ?");
+                pstmt = conn.prepareStatement("UPDATE restriction SET type = ?, image_url = ?, description = ? WHERE id = ?");
                 pstmt.setString(1, restriction.getType());
                 pstmt.setString(2, restriction.getImageURL());
                 pstmt.setString(3, restriction.getDescription());
-                if (pstmt.executeUpdate() > 0) {
-                    n = 1;
-                } else {
-                    n = -1;
-                }
+                pstmt.setInt(4, restriction.getId());
+                pstmt.executeUpdate();
+
+                // Atualiza a coluna is_updated para 'true'
+                pstmt.close();  // Fecha o pstmt para a próxima operação
+                //Atualiza a coluna is_updated para True, para sinalizar qeu a operação foi concluída
+                pstmt = conn.prepareStatement("update restriction set is_updated ='true' where id =?");
+                pstmt.setInt(1, restriction.getId());
+                return pstmt.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,27 +115,30 @@ public class RestrictionDAO {
         return n;
     }
 
-//    Método de remover
+//  Metodo que remove os dados da tabela Restriction pelo id
+public int remove(Restriction restriction){
 
-    public int remove(int id) {
-        int n = 0;
-        ConnectionDB connectionDB = new ConnectionDB();
-        try {
-            Connection conn= connectionDB.connect();
-            pstmt = conn.prepareStatement("DELETE FROM ingredient WHERE id=?");
-            pstmt.setInt(1, id);
-            if (pstmt.executeUpdate() > 0) {
-                n = 1;
-            } else {
-                n = -1;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            n = -1;
-        } finally {
-            connectionDB.disconnect();
+//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
+    ConnectionDB connectionDB= new ConnectionDB();
+    try{
+        Connection conn= connectionDB.connect();
+        pstmt= conn.prepareStatement("select * from restriction where id=?");
+        pstmt.setInt(1,restriction.getId());
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            pstmt = conn.prepareStatement("update restriction set is_deleted = 'true' where id=?");
+            pstmt.setInt(1,restriction.getId());
+            return pstmt.executeUpdate();
+        } else {
+            return 0;
         }
-        return n;
+    }catch (SQLException sql){
+        sql.printStackTrace();
+        return -1;
     }
+    finally{
+        connectionDB.disconnect();
+    }
+}
 
 }

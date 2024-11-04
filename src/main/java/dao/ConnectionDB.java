@@ -9,21 +9,33 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionDB {
+public class ConnectionDB { //Classe ConnectionDB
+
+//  Metodo connect
+
+//  Conecta com o banco e será utilizados nos DAOs
     public Connection connect(){
         try{
+//          Criação do objeto Properties
             var props = new Properties();
+
+//          Definindo caminho para o arquivo .env
             var envFile = Paths.get("C:\\envs\\projeto\\.env");
+
+//          Criando inputStream para ler o conteúdo do arquivo .env
             var inputStream = Files.newInputStream(envFile);
+
+//          Carrega os dados do arquivo .env para o props
             props.load(inputStream);
 
             String user = (String) props.get("USER");
             String password = (String) props.get("PASSWORD");
             Class.forName("org.postgresql.Driver");
 
-            // criando a conexão com o BD
+//          Criando a conexão com o BD
             java.sql.Connection conn= DriverManager.getConnection("jdbc:postgresql://pg-lets-snack-lets-snack.k.aivencloud.com:18692/db-lets-snack-1o",user,password);
             return conn;
+
         }catch(SQLException sql){
             sql.printStackTrace();
             return null;
@@ -34,6 +46,10 @@ public class ConnectionDB {
         }
 
     }
+
+//  Metodo disconnect
+
+//  Encerra a conexão com o banco e será utilizado nos DAOs
     public void disconnect() {
         Connection conn= null;
 
@@ -45,4 +61,5 @@ public class ConnectionDB {
             e.printStackTrace();
         }
     }
-}
+
+}//Fim da classe ConnectionDB

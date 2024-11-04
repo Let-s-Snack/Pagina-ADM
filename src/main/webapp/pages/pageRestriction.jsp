@@ -1,7 +1,6 @@
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="dao.RecipeDAO" %>
-<%@ page import="dao.ConnectionDB" %><%--
+<%@ page import="dao.RestrictionDAO" %>
+<%@ page import="java.sql.SQLException" %><%--
   Created by IntelliJ IDEA.
   User: beatrizmarioti-ieg
   Date: 29/10/2024
@@ -11,8 +10,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Receitas</title>
-    <link rel="stylesheet" href="../css/pageRecipe.css">
+    <title>Restrições</title>
+    <link rel="stylesheet" href="../css/pageAdm.css">
     <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
 </head>
 <body>
@@ -27,45 +26,34 @@
     <table class="table">
         <thead>
         <tr>
-            <th>NOME</th>
+            <th>TIPO</th>
             <th>URL IMAGEM</th>
-            <th>PASSOS</th>
             <th>DESCRIÇÃO</th>
-            <th>VER</th>
             <th>AÇÃO</th>
         </tr>
         </thead>
         <tbody>
         <%
-            RecipeDAO recipeDAO=new RecipeDAO();
-            ResultSet rs = recipeDAO.selectAll();
+            RestrictionDAO restrictionDAO=new RestrictionDAO();
+            ResultSet rs = restrictionDAO.selectAll();
             try{
                 while (rs.next()){
         %>
         <tr>
-            <td><%=rs.getString("name")%></td>
+            <td><%=rs.getString("type")%></td>
             <td><%=rs.getString("image_url")%></td>
-            <td><%=rs.getString("steps")%></td>
             <td><%=rs.getString("description")%></td>
             <td>
-                <a href="pageIngredientRecipe.jsp?recipe_id=<%= rs.getInt("id") %>" class="buttonIngredient" >
-                    <p class="show">VER INGREDIENTE</p>
-                </a>
-            </td>
-            <td>
-                <a href="pageRecipeUpdate.jsp?name=<%= rs.getString("name") %>">
+                <a href="pageRestrictionUpdate.jsp?type=<%= rs.getString("type") %>">
                     <img src="../assets/edit.png" alt="Editar" class="edit">
                 </a>
             </td>
         </tr>
         <%
-
-                }
-            }catch (SQLException se){
+            }}catch (SQLException se){
         %>
         <h1>ERRO</h1>
-        <%}
-        %>
+        <%}%>
         </tbody>
     </table>
 

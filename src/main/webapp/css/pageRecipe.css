@@ -12,7 +12,7 @@ body {
     font-family: "Poppins_regular";
     background-color: #f8f8f8;
 }
-header {
+header{
     height: 80px;
     display: flex;
     width: 100vw;
@@ -63,12 +63,15 @@ table thead th {
     background-color: #f17022;
     color: #fafafa;
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 table tbody td {
     padding: 10px;
     color: #333;
+    max-width: 40px;
+    overflow-x: scroll;
+    text-align:center ;
 }
 
 table tbody tr:nth-child(even) {
@@ -122,4 +125,29 @@ table tbody tr:nth-child(odd) {
     display: flex;
     margin-left: 1400px;
     margin-top: 90%;
+}
+.buttonIngredient {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    background-color: #ff5e19;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+}
+.show:hover {
+    background-color: #d95e1a;
 }

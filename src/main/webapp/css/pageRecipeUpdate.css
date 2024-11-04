@@ -36,8 +36,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30%;
-    height: 60%;
+    width: 40%;
+    height: 80%;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
@@ -70,7 +70,7 @@ input[type="text"] {
 
 .buttons {
     margin-right: 50px;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .button {
@@ -99,13 +99,13 @@ button[type="button"]:hover {
 }
 .error{
     color: red;
-    padding-left:50px ;
+    padding-left:20px ;
 }
 .success{
     color: #38db38;
-    padding-left:50px ;
+    padding-left:20px ;
 }
-.idIngredient{
+.idRecipe{
     display: inline-flex;
 }
 .idDisplay{
