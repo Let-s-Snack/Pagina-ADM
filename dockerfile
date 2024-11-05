@@ -10,7 +10,7 @@ COPY src ./src
 
 RUN mvn clean package -DskipTests
 
-FROM tomcat:10.1.28-jdk11
+FROM tomcat:10.1.28-jdk21
 
 # Definindo as variáveis de ambiente para o banco de dados
 ENV USER=avnadmin
