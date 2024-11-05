@@ -8,13 +8,18 @@ public class Restriction { //Classe Restriction
     private int id;
     private String description;
 
-
+//  Construtor padrão
     public Restriction() {}
 
     public Restriction(String type, String imageURL, String description, int id) {
         this.type = type;
         this.imageURL = imageURL;
         this.id = id;
+        this.description = description;
+    }
+    public Restriction(String type, String imageURL, String description) {
+        this.type = type;
+        this.imageURL = imageURL;
         this.description = description;
     }
     public Restriction(String type) {

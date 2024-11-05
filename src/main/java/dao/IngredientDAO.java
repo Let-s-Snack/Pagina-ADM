@@ -1,4 +1,5 @@
 package dao;
+
 import model.Ingredient;
 
 import java.sql.Connection;
@@ -25,7 +26,7 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             return pstmt.executeQuery(); // Executa a consulta e retorna o resultado
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return null;
+            return null; // Retorna null em caso de erro
         } finally {
             connectionDB.disconnect(); // Desconecta do banco de dados ao final da execução
         }
@@ -42,7 +43,7 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             return pstmt.executeQuery(); // Executa a consulta e retorna o resultado
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return null;
+            return null; // Retorna null em caso de erro
         } finally {
             connectionDB.disconnect();
         }
@@ -73,12 +74,12 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            n = -1;
+            n = -1; // Retorna -1 em caso de erro na execução
             return n;
         } finally {
-            connectionDB.disconnect();
+            connectionDB.disconnect(); // Desconecta do banco de dados ao final da execução
         }
-        return n;
+        return n; // Retorna 0 se o ID já existe
     }
 
     // Método que marca um ingrediente como excluído (soft delete)
@@ -102,7 +103,7 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             sql.printStackTrace();
             return -1; // Retorna -1 em caso de erro na execução
         } finally {
-            connectionDB.disconnect();
+            connectionDB.disconnect(); // Desconecta do banco de dados ao final da execução
         }
     }
 

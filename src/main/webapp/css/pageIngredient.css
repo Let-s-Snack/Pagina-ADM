@@ -104,9 +104,12 @@ table tbody tr:nth-child(odd) {
     width: 150px;
     height: 50px;
     font-size: 1.5rem;
+    transition: 0.2s;
 }
 .btn-back:hover, .btn-add:hover {
     background-color: #d95e1a;
+    transform: scale(102%);
+    transition: 0.5s;
 }
 .logo {
     width: 80px;

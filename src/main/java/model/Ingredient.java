@@ -15,10 +15,11 @@ public class Ingredient { //Classe Ingredient
         this.name = name;
         this.description = description;
     }
+//   Contrutor que pega o id
     public Ingredient(int id) {
         this.id = id;
     }
-
+//   Construtor completo
     public Ingredient( int id, String name, String description) {
         this.id=id;
         this.name = name;

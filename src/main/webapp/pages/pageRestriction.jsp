@@ -11,15 +11,15 @@
 <html>
 <head>
     <title>Restrições</title>
-    <link rel="stylesheet" href="../css/pageAdm.css">
+    <link rel="stylesheet" href="../css/pageRestriction.css">
     <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
 </head>
 <body>
 <header>
-    <div class="box_logo">
+    <a href="../indexAdm.html" class="box_logo">
         <img class="logoApp" src="../assets/logo.png" alt="Logo do App" />
         <p>Let's Snack</p>
-    </div>
+    </a>
 </header>
 <div class="container">
     <h1>CRUD Banco de Dados</h1>
@@ -60,7 +60,7 @@
     <div class="buttons">
         <a href="../indexAdm.html"
         ><button class="btn-back">Voltar</button></a>
-        <button class="btn-add">Adicionar</button>
+        <a href="pageRestrictionInsert.jsp"><button class="btn-add">Adicionar</button></a>
     </div>
 </div>
 

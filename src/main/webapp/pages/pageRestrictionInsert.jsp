@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/pageIngredientUpdate.css">
     <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
     <script src="../js/pageIngredientUpdate.js"></script>
-    <title>Adicionar - Ingrediente</title>
+    <title>Adicionar - Restrição</title>
 </head>
 
 <body>
@@ -20,20 +20,22 @@
         <p>Let's Snack</p>
     </div>
 </header>
-<h1>ADICIONAR INGREDIENTE</h1>
+<h1>ADICIONAR RESTRIÇÃO</h1>
 <h2 class="" id="h2"></h2>
 <div class="container">
 
-    <form action="${pageContext.request.contextPath}/insert-ingredient" method="post">
+    <form action="${pageContext.request.contextPath}/insert-restriction" method="post">
 
-        <label for="name">NOME</label>
-        <input type="text" id="name" name="name" placeholder="Digite o nome do ingrediente">
+        <label for="type">TIPO</label>
+        <input type="text" id="type" name="type" placeholder="Digite o tipo de restrição">
+
+        <label for="image_url">IMAGEM URL</label>
+        <input id="image_url" type="text" name="image_url" placeholder="Coloque uma imagem na restrição">
 
         <label for="description">DESCRIÇÃO</label>
-        <input id="description" type="text" name="description" placeholder="Digite a descrição do ingrediente">
-
+        <input id="description" type="text" name="description" placeholder="Digite a descrição da restrição">
         <div class="buttons">
-            <a href="pageIngredient.jsp"><button type="button" class="button">Voltar</button></a>
+            <a href="pageRestriction.jsp"><button type="button" class="button">Voltar</button></a>
             <button type="submit" class="button">Confirmar</button>
         </div>
     </form>

@@ -10,8 +10,10 @@ public class IngredientRecipe { //Classe Ingredient Recipe
     private int quantity;
     private boolean transaction_made;
 
+//    Construtor padrão
     public IngredientRecipe() {}
 
+//    Construtor para update
     public IngredientRecipe(String measure, int quantity,int id) {
         this.measure = measure;
         this.quantity = quantity;
@@ -30,8 +32,6 @@ public class IngredientRecipe { //Classe Ingredient Recipe
     public IngredientRecipe(int id){
         this.id=id;
     }
-
-
 
 //  Getters e Setters
 

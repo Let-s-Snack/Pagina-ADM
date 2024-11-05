@@ -30,16 +30,17 @@ function confirmAdm() {
         .catch(error => console.error("Erro ao enviar o adm:", error));
 }
 function deleteAdm() {
-    const adm = document.getElementById("email").value
+    const email = document.getElementById("email").value
 
     // Verifica se o ID é válido
-    if (isNaN(adm)) {
-        console.error("ID do adm não é válido.");
-        return; // Interrompe se o ID não for válido
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        console.error("E-mail do adm não é válido.");
+        return; // Interrompe se o e-mail não for válido
     }
 
+    console.log(email)
     // Faz a requisição para excluir o ingrediente
-    fetch(`/Projeto_war_exploded/delete-adm?email=${adm}`, {
+    fetch(`/Projeto_war_exploded/delete-adm?email=${email}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

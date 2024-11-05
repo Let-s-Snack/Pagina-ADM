@@ -17,10 +17,10 @@
 </head>
 <body>
 <header>
-    <div class="box_logo">
+    <a href="../indexAdm.html" class="box_logo">
         <img class="logoApp" src="../assets/logo.png" alt="Logo do App" />
         <p>Let's Snack</p>
-    </div>
+    </a>
 </header>
 <div class="container">
     <h1>CRUD Banco de Dados</h1>
@@ -39,6 +39,8 @@
         <%
             RecipeDAO recipeDAO=new RecipeDAO();
             ResultSet rs = recipeDAO.selectAll();
+            String recipeId = request.getParameter("recipe_id"); // ou o valor que você usa para obtê-lo
+            session.setAttribute("recipe_id", recipeId);
             try{
                 while (rs.next()){
         %>
@@ -72,7 +74,7 @@
     <div class="buttons">
         <a href="../indexAdm.html"
         ><button class="btn-back">Voltar</button></a>
-        <button class="btn-add">Adicionar</button>
+        <a href="pageRecipeInsert.jsp"><button class="btn-add">Adicionar</button></a>
     </div>
 </div>
 
