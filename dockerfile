@@ -1,18 +1,16 @@
-FROM maven:eclipse-temurin AS build
+FROM maven:3.8.3-openjdk-17 AS build
 
 WORKDIR /app
 
 COPY pom.xml .
-
-RUN mvn dependency:go-offline
-
 COPY src ./src
 
 RUN mvn clean package -DskipTests
 
-FROM tomcat:10.1.28-jdk21
+FROM tomcat:10.1.19-jdk11
 
-# Copiando o arquivo WAR para o Tomcat
-COPY --from=build /app/target/Projeto-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/Projeto.war
+COPY --from=build /app/target/Projeto-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/app.war
 
 EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
