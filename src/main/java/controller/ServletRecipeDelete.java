@@ -1,6 +1,5 @@
 package controller;
 import dao.RecipeDAO;
-import dao.RestrictionDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,10 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import jakarta.servlet.annotation.WebServlet;
 import model.Recipe;
-import model.Restriction;
 
 import java.io.IOException;
-
+// Mapeamento do servlet para a URL "/delete-recipe"
 @WebServlet("/delete-recipe")
 public class ServletRecipeDelete extends HttpServlet {
     @Override

@@ -28,16 +28,8 @@ public class ServletRestrictionConfirm extends HttpServlet {
         // Tenta mapear o JSON para o objeto Restrição
         try {
             System.out.println("Lendo JSON do request...");
-            System.out.println(request.getReader().toString());
             restriction = mapper.readValue(request.getReader(), Restriction.class);
             System.out.println("JSON recebido e mapeado com sucesso: " + restriction);
-            System.out.println(restriction.getId());
-            System.out.println(restriction.getType());
-            System.out.println(restriction.getDescription());
-            System.out.println(restriction.getImageURL());
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

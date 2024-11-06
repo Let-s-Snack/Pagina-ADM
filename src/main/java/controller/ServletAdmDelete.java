@@ -1,12 +1,10 @@
 package controller;
 import dao.AdmDAO;
-import dao.IngredientDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Adm;
-import model.Ingredient;
 
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;

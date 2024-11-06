@@ -38,6 +38,12 @@ public class Recipe {// Classe Recipe
         this.image_url = image_url;
         this.description=description;
     }
+    public Recipe(String name, String steps, String image_url, String description ){
+        this.name=name;
+        this.steps = steps;
+        this.image_url = image_url;
+        this.description=description;
+    }
     //    Construtor padrão
     public Recipe(){}
 //  Getters e Setters

@@ -7,6 +7,16 @@
     font-family: "Poppins_regular";
     src: url("./Poppins/Poppins-Regular.ttf");
 }
+
+a {
+    text-decoration: none;
+    color: #fafafa;
+}
+
+header a:hover {
+    text-shadow: 0px 0px 12.4px rgba(0, 0, 0, 0.35);
+    text-decoration: underline;
+}
 body {
     width: 100vw;
     font-family: "Poppins_regular";
@@ -44,7 +54,15 @@ header {
 button{
     border: none;
     cursor: pointer;
+    transition: 0.2s;
 }
+
+button:hover{
+    background-color: #d95e1a;
+    transform: scale(105%);
+    transition: 0.5s;
+}
+
 .row1{
     display: flex;
     justify-content: center;

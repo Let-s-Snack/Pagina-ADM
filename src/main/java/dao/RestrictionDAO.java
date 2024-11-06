@@ -3,91 +3,80 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import model.Ingredient;
-import model.Recipe;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.Restriction;
 
-public class RestrictionDAO { //Classe RestrictionDAO
+public class RestrictionDAO { // Classe RestrictionDAO
 
-//  Declaração dos Atributos
+    //  Declaração dos Atributos
     private PreparedStatement pstmt;
     private ResultSet rs;
 
-//  Metodo que busca todos os registros da tabela Restriction
+    //  Metodo que busca todos os registros da tabela Restriction
     public ResultSet selectAll() {
-
-//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
+        //      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
         ConnectionDB connectionDB = new ConnectionDB();
         try {
-            Connection conn= connectionDB.connect();
+            Connection conn = connectionDB.connect();
             pstmt = conn.prepareStatement("select * from restriction where is_deleted='false' order by type");
             return pstmt.executeQuery();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return null;
+            return null; // Considerar lançar uma exceção ao invés de retornar null.
         } finally {
-            connectionDB.disconnect();
+            connectionDB.disconnect(); // Desconectar após a operação.
         }
     }
 
-    //  Metodo que encontra Ingredient pelo nome
+    //  Metodo que encontra Restriction pelo tipo
     public ResultSet selectByType(Restriction restriction) {
-
-//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
-        ConnectionDB connectionDB= new ConnectionDB();
+        //      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
+        ConnectionDB connectionDB = new ConnectionDB();
         try {
-            Connection conn= connectionDB.connect();
+            Connection conn = connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM restriction where type = ?");
             pstmt.setString(1, restriction.getType());
             return pstmt.executeQuery();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return null;
+            return null; // Considerar lançar uma exceção ao invés de retornar null.
         } finally {
-            connectionDB.disconnect();
+            connectionDB.disconnect(); // Desconectar após a operação.
         }
     }
-    public int id (){
-        ConnectionDB connectionDB= new ConnectionDB();
-        try{
-            Connection conn= connectionDB.connect();
-            pstmt=conn.prepareStatement("select id+1 as new_id from recipe order by id desc limit 1");
-            rs=pstmt.executeQuery();
-            return rs.getInt("new_id");
-        }catch (SQLException e){
-            e.printStackTrace();
-            return 0;
-        }
-    }
-//  Metodo que insere registros na tabela Restriction
-    public int insert(Restriction restriction) {
 
-//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
+    //  Metodo que insere registros na tabela Restriction
+    public int insert(Restriction restriction) {
+        //      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
         ConnectionDB connectionDB = new ConnectionDB();
+        int n = 0;
         try {
-            Connection conn= connectionDB.connect();
-            pstmt = conn.prepareStatement("insert into restriction (id,type, image_url, description) values (?,?, ?, ?)");
-            pstmt.setInt(1, id());
-            pstmt.setString(2, restriction.getType());
-            pstmt.setString(3, restriction.getImageURL());
-            pstmt.setString(4, restriction.getDescription());
-            return pstmt.executeUpdate();
+            Connection conn = connectionDB.connect();
+            pstmt = conn.prepareStatement("insert into restriction (type, image_url, description) values (?, ?, ?)");
+            pstmt.setString(1, restriction.getType());
+            pstmt.setString(2, restriction.getImageURL());
+            pstmt.setString(3, restriction.getDescription());
+            if (validateUrl(restriction.getImageURL())) {
+                // Verifica se o formato da URL é válida
+                n = pstmt.executeUpdate(); // Considere verificar se n > 0 para confirmar a inserção.
+            }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            return -1;
+            return -1; // Considere lançar uma exceção ao invés de retornar -1.
         } finally {
-            connectionDB.disconnect();
+            connectionDB.disconnect(); // Desconectar após a operação.
         }
+        return n; // Retorna o número de linhas afetadas pela operação.
     }
-//  Metodo que atualiza os dados da tabela Restriction pelo id
+
+    //  Metodo que atualiza os dados da tabela Restriction pelo id
     public int update(Restriction restriction) {
         int n = 0;
-
-//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
+        //      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
         ConnectionDB connectionDB = new ConnectionDB();
         try {
-            Connection conn= connectionDB.connect();
+            Connection conn = connectionDB.connect();
             pstmt = conn.prepareStatement("SELECT * FROM restriction WHERE id = ?");
             pstmt.setInt(1, restriction.getId());
             rs = pstmt.executeQuery();
@@ -97,48 +86,58 @@ public class RestrictionDAO { //Classe RestrictionDAO
                 pstmt.setString(2, restriction.getImageURL());
                 pstmt.setString(3, restriction.getDescription());
                 pstmt.setInt(4, restriction.getId());
-                pstmt.executeUpdate();
+                if (validateUrl(restriction.getImageURL())) {
+                    // Verifica se o formato da URL é válida
+                    pstmt.executeUpdate(); // Considere verificar se a atualização foi bem-sucedida.
+                }
 
                 // Atualiza a coluna is_updated para 'true'
                 pstmt.close();  // Fecha o pstmt para a próxima operação
-                //Atualiza a coluna is_updated para True, para sinalizar qeu a operação foi concluída
-                pstmt = conn.prepareStatement("update restriction set is_updated ='true' where id =?");
+                // Atualiza a coluna is_updated para True, para sinalizar que a operação foi concluída
+                pstmt = conn.prepareStatement("update restriction set is_updated ='true' where id = ?");
                 pstmt.setInt(1, restriction.getId());
-                return pstmt.executeUpdate();
+                return pstmt.executeUpdate(); // Considere retornar um valor de confirmação.
+            } else {
+                return 0; // Retornar 0 se a restrição não for encontrada.
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            n = -1;
+            n = -1; // Considere lançar uma exceção ao invés de retornar -1.
         } finally {
-            connectionDB.disconnect();
+            connectionDB.disconnect(); // Desconectar após a operação.
         }
-        return n;
+        return n; // Retornar o valor da variável n, que pode ser -1 se houver erro.
     }
 
-//  Metodo que remove os dados da tabela Restriction pelo id
-public int remove(Restriction restriction){
-
-//      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
-    ConnectionDB connectionDB= new ConnectionDB();
-    try{
-        Connection conn= connectionDB.connect();
-        pstmt= conn.prepareStatement("select * from restriction where id=?");
-        pstmt.setInt(1,restriction.getId());
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            pstmt = conn.prepareStatement("update restriction set is_deleted = 'true' where id=?");
-            pstmt.setInt(1,restriction.getId());
-            return pstmt.executeUpdate();
-        } else {
-            return 0;
+    //  Metodo que remove os dados da tabela Restriction pelo id
+    public int remove(Restriction restriction) {
+        //      Utilizando a classe ConnectionDB para acessar os metodos de conectar e desconectar
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            Connection conn = connectionDB.connect();
+            pstmt = conn.prepareStatement("select * from restriction where id=?");
+            pstmt.setInt(1, restriction.getId());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                pstmt = conn.prepareStatement("update restriction set is_deleted = 'true' where id=?");
+                pstmt.setInt(1, restriction.getId());
+                return pstmt.executeUpdate(); // Considere retornar um valor de confirmação.
+            } else {
+                return 0; // Retornar 0 se a restrição não for encontrada.
+            }
+        } catch (SQLException sql) {
+            sql.printStackTrace();
+            return -1; // Considere lançar uma exceção ao invés de retornar -1.
+        } finally {
+            connectionDB.disconnect(); // Desconectar após a operação.
         }
-    }catch (SQLException sql){
-        sql.printStackTrace();
-        return -1;
     }
-    finally{
-        connectionDB.disconnect();
-    }
-}
 
-}
+    // Método para validar a URL
+    public static boolean validateUrl(String url) {
+        String regex = ".\\.(png|jpeg|PNG|JPEG|jpg)."; // Definindo o regex que valida os dados
+        Pattern pattern = Pattern.compile(regex); // Transformando o regex em um padrão que vai servir de base para o matcher
+        Matcher matcher = pattern.matcher(url); // Comparando o padrão com o parâmetro (a url)
+        return matcher.matches(); // Retorna a comparação, true para correta e false para incorreta
+    }
+} // Fim da classe RestrictionDAO

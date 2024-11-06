@@ -10,10 +10,10 @@
 </head>
 <body>
 <header>
-    <div class="box_logo">
+    <a href="pageRecipe.jsp" class="box_logo">
         <img class="logoApp" src="../assets/logo.png" alt="Logo do App" />
         <p>Let's Snack</p>
-    </div>
+    </a>
 </header>
 <div class="container">
     <h1>Ingredientes da Receita</h1>
@@ -62,7 +62,7 @@
 
     <div class="buttons">
         <a href="pageRecipe.jsp"><button class="btn-back">Voltar</button></a>
-        <a href="pageIngredientRecipeAdd.jsp?recipe_id=<%= recipeId %>"><button class="btn-add">Adicionar</button></a>
+        <a href="pageIngredientRecipeInsert.jsp"><button class="btn-add">Adicionar</button></a>
     </div>
 </div>
 

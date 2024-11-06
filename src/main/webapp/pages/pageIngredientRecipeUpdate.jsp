@@ -44,8 +44,7 @@
         <input id="quantity" type="text" name="quantity" value="<%= rs.getString("quantity") %>">
 
         <div class="buttons">
-            <a href="pageIngredientRecipe.jsp?recipe_id=<%= rs.getString("recipe_id") %>">
-                <button type="button" class="button">Voltar</button></a>
+            <button type="button" class="button" onclick="window.history.back()">Voltar</button>
             <button type="button" class="button" onclick="confirmIngredientRecipe()">Confirmar</button>
             <a href="pageIngredientRecipe.jsp"><button type="button" class="button" onclick="deleteIngredientRecipe()" >Excluir</button></a>
         </div>
