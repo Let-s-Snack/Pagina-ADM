@@ -6,7 +6,7 @@ function confirmAdm() {
 
     };
     console.log(adm)
-    fetch('/Projeto_war_exploded/update-adm', {
+    fetch('https://pagina-adm.onrender.com/update-adm', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
