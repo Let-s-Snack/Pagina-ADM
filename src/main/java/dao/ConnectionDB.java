@@ -17,16 +17,16 @@ public class ConnectionDB { //Classe ConnectionDB
     public Connection connect(){
         try{
 //          Criação do objeto Properties
-//             var props = new Properties();
+             var props = new Properties();
 
-// //          Definindo caminho para o arquivo .env
-//             var envFile = Paths.get("C:\\envs\\projeto\\.env");
+ //          Definindo caminho para o arquivo .env
+             var envFile = Paths.get("C:\\envs\\projeto\\.env");
 
-// //          Criando inputStream para ler o conteúdo do arquivo .env
-//             var inputStream = Files.newInputStream(envFile);
+ //          Criando inputStream para ler o conteúdo do arquivo .env
+             var inputStream = Files.newInputStream(envFile);
 
-// //          Carrega os dados do arquivo .env para o props
-//             props.load(inputStream);
+ //          Carrega os dados do arquivo .env para o props
+             props.load(inputStream);
             String user = System.getenv("USER");
             String password =  System.getenv("PASSWORD");
             Class.forName("org.postgresql.Driver");

@@ -39,8 +39,8 @@
         <%
             RecipeDAO recipeDAO=new RecipeDAO();
             ResultSet rs = recipeDAO.selectAll();
-            String recipeId = request.getParameter("recipe_id"); // ou o valor que você usa para obtê-lo
-            session.setAttribute("recipe_id", recipeId);
+//            String recipeId = request.getParameter("recipe_id"); // ou o valor que você usa para obtê-lo
+//            session.setAttribute("recipe_id", recipeId);
             try{
                 while (rs.next()){
         %>
