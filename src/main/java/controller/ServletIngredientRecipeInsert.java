@@ -41,10 +41,16 @@ public class ServletIngredientRecipeInsert extends HttpServlet {
 
             int recipeId=-1;
             int ingredientId=-1;
-            ResultSet rs= ingredientRecipeDAO.selectIdRecipe(recipe) ;
-            recipeId = rs.getInt("recipe_id"); // substitua "id_recipe" pelo nome real da coluna
-            ResultSet rsIngredient= ingredientRecipeDAO.selectIdIngredient(ingredient);
-            ingredientId = rsIngredient.getInt("ingredient_id");
+            ResultSet rs = ingredientRecipeDAO.selectIdRecipe(recipe);
+            if (rs != null && rs.next()) {  // Verifica se existe um resultado
+                recipeId = rs.getInt("id");
+            }
+
+            // Obtém o ID do ingrediente
+            ResultSet rsIngredient = ingredientRecipeDAO.selectIdIngredient(ingredient);
+            if (rsIngredient != null && rsIngredient.next()) {  // Verifica se existe um resultado
+                ingredientId = rsIngredient.getInt("id");
+            }
             // Insere o relacionamento ingrediente-receita no banco de dados e armazena o resultado
             int result = ingredientRecipeDAO.insertIngredientRecipe(ingredientId, recipeId, measure, quantity);
 

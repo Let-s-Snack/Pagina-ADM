@@ -28,9 +28,13 @@ public class ServletRecipeConfirm extends HttpServlet {
         // Tenta mapear o JSON para o objeto Receita
         try {
             System.out.println("Lendo JSON do request...");
-            System.out.println(request.getReader().toString());
             recipe = mapper.readValue(request.getReader(), Recipe.class);
-            System.out.println("JSON recebido e mapeado com sucesso: " + recipe);
+            System.out.println("Dados da receita recebidos para atualização:");
+            System.out.println("ID: " + recipe.getId());
+            System.out.println("Nome: " + recipe.getName());
+            System.out.println("URL da Imagem: " + recipe.getImage_url());
+            System.out.println("Descrição: " + recipe.getDescription());
+            System.out.println("Passos: " + recipe.getSteps());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,6 +43,7 @@ public class ServletRecipeConfirm extends HttpServlet {
         }
 
         // Cria instância do DAO e tenta atualizar
+        System.out.println(recipe.getDescription()+" "+recipe.getImage_url()+" "+recipe.getName()+" "+recipe.getSteps());
         RecipeDAO recipeDAO = new RecipeDAO();
         int result = recipeDAO.update(recipe);
         System.out.println("Resultado da atualização: " + result);

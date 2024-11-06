@@ -20,13 +20,8 @@ public class AdmDAO { // Classe AdmDAO
             sqle.printStackTrace();
             return null;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -45,13 +40,8 @@ public class AdmDAO { // Classe AdmDAO
             e.printStackTrace();
             return null;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -74,13 +64,8 @@ public class AdmDAO { // Classe AdmDAO
             e.printStackTrace();
             return -1; // Erro no banco de dados
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -99,12 +84,8 @@ public class AdmDAO { // Classe AdmDAO
             e.printStackTrace();
             return -1;
         } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -124,12 +105,8 @@ public class AdmDAO { // Classe AdmDAO
             e.printStackTrace();
             return -1;
         } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -146,12 +123,8 @@ public class AdmDAO { // Classe AdmDAO
             e.printStackTrace();
             return -1;
         } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 

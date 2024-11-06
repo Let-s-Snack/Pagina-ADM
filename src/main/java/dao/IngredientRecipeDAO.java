@@ -23,13 +23,8 @@ public class IngredientRecipeDAO {
             e.printStackTrace();
             return null;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -42,31 +37,31 @@ public class IngredientRecipeDAO {
             pstmt = conn.prepareStatement("SELECT * FROM ingredient_recipe WHERE recipe_id = ?");
             pstmt.setInt(1, recipe_id);
             rs = pstmt.executeQuery();
-            if (rs.next()) {
-                rs.close();
+
+            // Verifique se o resultado possui dados, mas não feche o ResultSet
+            if (rs.isBeforeFirst()) {
+                // Feche o PreparedStatement para preparar o próximo
                 pstmt.close();
-                pstmt = conn.prepareStatement("SELECT i.name AS ingredient_name, r.name AS recipe_name, ir.measure, ir.quantity, ir.id, r.id AS recipe_id " +
-                        "FROM ingredient_recipe ir JOIN recipe r ON r.id = ir.recipe_id " +
-                        "JOIN ingredient i ON i.id = ir.ingredient_id WHERE recipe_id = ? AND ir.is_deleted = 'false'");
+                pstmt = conn.prepareStatement(
+                        "SELECT i.name AS ingredient_name, r.name AS recipe_name, ir.measure, ir.quantity, ir.id, r.id AS recipe_id " +
+                                "FROM ingredient_recipe ir " +
+                                "JOIN recipe r ON r.id = ir.recipe_id " +
+                                "JOIN ingredient i ON i.id = ir.ingredient_id " +
+                                "WHERE ir.recipe_id = ? AND ir.is_deleted = 'false'"
+                );
                 pstmt.setInt(1, recipe_id);
-                rs = pstmt.executeQuery();
-                return rs;
+                return pstmt.executeQuery(); // Retorne diretamente o novo ResultSet
             } else {
-                return null;
+                return null; // Retorne null se não houver dados
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
         }
     }
+
 
     public int remove(IngredientRecipe ingredientRecipe) {
         ConnectionDB connectionDB = new ConnectionDB();
@@ -90,13 +85,8 @@ public class IngredientRecipeDAO {
             e.printStackTrace();
             return -1;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -119,7 +109,7 @@ public class IngredientRecipeDAO {
                 pstmt.executeUpdate();
 
                 pstmt.close();
-                pstmt = conn.prepareStatement("UPDATE ingredient_recipe SET is_updated = 'true' WHERE ingredient_recipe.id = ?");
+                pstmt = conn.prepareStatement("UPDATE ingredient_recipe SET is_updated = 'true' WHERE id = ?");
                 pstmt.setInt(1, ingredientRecipe.getId());
                 return pstmt.executeUpdate();
             } else {
@@ -129,13 +119,8 @@ public class IngredientRecipeDAO {
             e.printStackTrace();
             return -1;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -152,13 +137,8 @@ public class IngredientRecipeDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -175,13 +155,8 @@ public class IngredientRecipeDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -201,12 +176,8 @@ public class IngredientRecipeDAO {
             e.printStackTrace();
             return -1;
         } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
         }
     }
+
 }

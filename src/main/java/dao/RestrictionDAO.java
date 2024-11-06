@@ -25,13 +25,8 @@ public class RestrictionDAO { // Classe RestrictionDAO
             sqle.printStackTrace();
             return null;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -48,13 +43,8 @@ public class RestrictionDAO { // Classe RestrictionDAO
             sqle.printStackTrace();
             return null;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -75,12 +65,8 @@ public class RestrictionDAO { // Classe RestrictionDAO
             sqle.printStackTrace();
             return -1;
         } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
         return n;
     }
@@ -112,13 +98,8 @@ public class RestrictionDAO { // Classe RestrictionDAO
             e.printStackTrace();
             n = -1;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
         return n;
     }
@@ -145,13 +126,7 @@ public class RestrictionDAO { // Classe RestrictionDAO
             sql.printStackTrace();
             result = -1;
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
         }
         return result;
     }

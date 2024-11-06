@@ -26,13 +26,8 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             sqle.printStackTrace();
             return null; // Retorna null em caso de erro
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect(); // Desconecta do banco de dados ao final da execução
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -49,13 +44,8 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             sqle.printStackTrace();
             return null; // Retorna null em caso de erro
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -85,13 +75,8 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             e.printStackTrace();
             n = -1; // Retorna -1 em caso de erro na execução
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect(); // Desconecta do banco de dados ao final da execução
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
         return n; // Retorna 0 se o ID já existe
     }
@@ -118,13 +103,8 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             sql.printStackTrace();
             return -1; // Retorna -1 em caso de erro na execução
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect(); // Desconecta do banco de dados ao final da execução
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 
@@ -158,13 +138,8 @@ public class IngredientDAO { // Classe responsável pelas operações de banco d
             e.printStackTrace();
             return -1; // Retorna -1 em caso de erro na execução
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                connectionDB.disconnect(); // Desconecta do banco de dados ao final da execução
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            connectionDB.disconnect();
+
         }
     }
 } // Fim da classe IngredientDAO

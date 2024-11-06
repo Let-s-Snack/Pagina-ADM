@@ -46,7 +46,15 @@
         <div class="buttons">
             <button type="button" class="button" onclick="window.history.back()">Voltar</button>
             <button type="button" class="button" onclick="confirmIngredientRecipe()">Confirmar</button>
-            <a href="pageIngredientRecipe.jsp"><button type="button" class="button" onclick="deleteIngredientRecipe()" >Excluir</button></a>
+            <button type="button" class="button" onclick="goBackAndDelete()">Excluir</button>
+            <script>
+                function goBackAndDelete() {
+                    // Chama a função de exclusão
+                    deleteIngredientRecipe();
+                    // Vai para a página anterior
+                    window.history.back();
+                }
+            </script>
         </div>
     </form>
     <%

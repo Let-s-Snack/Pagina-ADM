@@ -11,7 +11,13 @@ import java.util.Properties;
 
 public class ConnectionDB { //Classe ConnectionDB
 
-//  Metodo connect
+    private Connection conn;
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    //  Metodo connect
 
 //  Conecta com o banco e será utilizados nos DAOs
     public Connection connect(){
@@ -27,12 +33,12 @@ public class ConnectionDB { //Classe ConnectionDB
 
  //          Carrega os dados do arquivo .env para o props
              props.load(inputStream);
-            String user = System.getenv("USER");
-            String password =  System.getenv("PASSWORD");
+            String user = (String) props.get("USER");
+            String password = (String) props.get("PASSWORD");
             Class.forName("org.postgresql.Driver");
 
 //          Criando a conexão com o BD
-            java.sql.Connection conn= DriverManager.getConnection("jdbc:postgresql://pg-lets-snack-lets-snack.k.aivencloud.com:18692/db-lets-snack-1o",user,password);
+            conn= DriverManager.getConnection("jdbc:postgresql://pg-lets-snack-lets-snack.k.aivencloud.com:18692/db-lets-snack-1o",user,password);
             return conn;
 
         }catch(SQLException sql){
@@ -50,8 +56,6 @@ public class ConnectionDB { //Classe ConnectionDB
 
 //  Encerra a conexão com o banco e será utilizado nos DAOs
     public void disconnect() {
-        Connection conn= null;
-
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
