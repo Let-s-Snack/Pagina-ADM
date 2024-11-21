@@ -7,7 +7,7 @@ function confirmRecipe() {
         steps:document.getElementById("steps").value
     };
     console.log(recipe)
-    fetch('/Projeto_war_exploded/update-recipe', {
+    fetch('https://pagina-adm.onrender.com/app/update-recipe', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
